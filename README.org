@@ -1,0 +1,19 @@
+* ipickme
+
+Image file picker for CLI (sh) utils.
+
+Pass as arguments paths of different images, and it will show thumbnails of them where you can pick one. The picked one path will be returned to stdout.
+
+** Installation
+
+   Linux dependencies: ImageMagick and LTK.
+   Lisp dependency NOT on quicklisp: [[https://github.com/ruricolist/lisp-magick-wand][ruricolist/lisp-magick-wand]]
+
+** License
+
+MIT
+
+
+Copyright (c) 2022 azimut <azimut.github@protonmail.com>
+
+
