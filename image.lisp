@@ -1,5 +1,5 @@
 (uiop:define-package #:ipickme/image
-  (:use #:cl #:magick)
+  (:use #:cl #:lisp-magick-wand)
   (:export #:thumbnails)
   (:import-from #:serapeum #:lret))
 

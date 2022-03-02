@@ -8,8 +8,6 @@
                #:ltk
                #:series
                #:serapeum
-               #:ipickme/image
-               #:ipickme/ui
                #:ipickme/main))
 
 (asdf:defsystem #:ipickme/standalone
