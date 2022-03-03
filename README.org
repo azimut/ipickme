@@ -1,13 +1,20 @@
 * ipickme
 
-Image file picker for CLI (sh) utils.
+Image file picker for shell scripts.
 
-Pass as arguments paths of different images, and it will show thumbnails of them where you can pick one. The picked one path will be returned to stdout.
+** Usage
+
+Like you would use Kdialog or Zenity.
+
+Pass it as arguments, paths of different images, and it will show you thumbnails of them where you can pick one. The picked one path's will be printed to stdout.
 
 ** Installation
 
-   Linux dependencies: ImageMagick and LTK.
-   Lisp dependency NOT on quicklisp: [[https://github.com/ruricolist/lisp-magick-wand][ruricolist/lisp-magick-wand]]
+- Linux dependencies:
+  - ImageMagick
+  - GTK3
+- Lisp dependency NOT on quicklisp:
+  - [[https://github.com/ruricolist/lisp-magick-wand][ruricolist/lisp-magick-wand]]
 
 ** License
 

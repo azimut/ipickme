@@ -1,7 +1,8 @@
 (uiop:define-package #:ipickme/image
   (:use #:cl #:lisp-magick-wand #:series)
-  (:export #:thumbnails)
-  (:import-from #:serapeum #:lret #:->))
+  (:import-from #:uiop #:command-line-arguments)
+  (:import-from #:serapeum #:lret #:->)
+  (:export #:thumbnails))
 
 (in-package #:ipickme/image)
 
@@ -15,7 +16,7 @@
 
 (defun images ()
   (mapcar #'truename
-          ;;(uiop:command-line-arguments)
+          ;;(command-line-arguments)
           (list "/home/sendai/testfield/rustonomicon.jpg"
                 "/home/sendai/testfield/peerlessdad.jpg")))
 
