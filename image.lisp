@@ -1,7 +1,7 @@
 (uiop:define-package #:ipickme/image
-  (:use #:cl #:lisp-magick-wand)
+  (:use #:cl #:lisp-magick-wand #:series)
   (:export #:thumbnails)
-  (:import-from #:serapeum #:lret))
+  (:import-from #:serapeum #:lret #:->))
 
 (in-package #:ipickme/image)
 
@@ -10,18 +10,20 @@
 
 (defun thumbnails ()
   (collect
-    (mapping ((img (scan (images)))
-              (idx (scan-range :from 0)))
-      (assert (probe-file img))
+    (mapping ((img (scan (images))) (idx (scan-range :from 0)))
       (create-thumbnail img idx 150 150))))
 
 (defun images ()
-  ;;(uiop:command-line-arguments)
-  (list "/home/sendai/testfield/rustonomicon.jpg"
-        "/home/sendai/testfield/peerlessdad.jpg"))
+  (mapcar #'truename
+          ;;(uiop:command-line-arguments)
+          (list "/home/sendai/testfield/rustonomicon.jpg"
+                "/home/sendai/testfield/peerlessdad.jpg")))
 
+(-> create-thumbnail (pathname fixnum fixnum fixnum) string)
 (defun create-thumbnail (filename idx width height)
-  (lret ((thumbname (format nil "thumbnail-~2,'0d.png" idx)))
+  (lret ((thumbname (format nil "~athumbnail-~2,'0d.png"
+                            (directory-namestring filename)
+                            idx)))
     (with-magick-wand (wand :load filename)
       (let ((a (/ (get-image-width wand) (get-image-height wand))))
         (if (> a (/ width height))
