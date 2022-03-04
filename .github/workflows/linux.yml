@@ -47,6 +47,12 @@ jobs:
                --eval '(ql:update-all-dists)'
         if: steps.cache.outputs.cache-hit != 'true'
 
+      - name: Deps not on Quicklisp
+        run: |
+          cd ~/quicklisp/local-projects/
+          test -d lisp-magick-wand || git clone --depth=1 https://github.com/ruricolist/lisp-magick-wand
+          (cd lisp-magick-wand/    && git pull )
+
       - name: Build Binary
         run: |
           cd bin/
