@@ -13,7 +13,7 @@ jobs:
       - name: apt-get
         run: |
           sudo apt-get update
-          sudo apt-get install -y sbcl wget
+          sudo apt-get install -y sbcl libmagickwand-dev
       - name: Setup
         run: |
           mkdir -pv ~/Downloads
