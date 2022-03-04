@@ -16,6 +16,7 @@
                    :border-width 12))
           (box (gtk-box-new :horizontal length)))
 
+      (gtk-window-set-position window :center-always)
       (g-signal-connect window "destroy"
                         (lambda (widget)
                           (declare (ignore widget))
