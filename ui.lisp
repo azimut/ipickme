@@ -32,7 +32,7 @@
 (defun signal-connect (window button original thumbnail)
   (flet ((click (widget)
            (declare (ignore widget))
-           (format t "~a" original)
+           (princ original)
            (gtk-widget-destroy window))
          (focus (widget event)
            (declare (ignore event))
