@@ -16,6 +16,7 @@ jobs:
           sudo apt-get install -y sbcl wget
       - name: Setup
         run: |
+          mkdir -pv ~/Downloads
           mkdir -pv ~/quicklisp
           mkdir -pv ~/.cache/common-lisp
         shell: bash
@@ -31,13 +32,13 @@ jobs:
         with:
           path: |
             ~/quicklisp
-            ~/.cache/common-lisp/
+            ~/.cache/common-lisp
+            ~/Downloads
           key: "${{ steps.current-month.outputs.value }}-${{ env.cache-name }}-${{ runner.os }}"
 
       - name: Install quicklisp
         run: |
           cd ~/Downloads
-          export PATH="$HOME/sbcl/bin:${PATH}"
           wget https://beta.quicklisp.org/quicklisp.lisp
           sbcl --non-interactive \
                --eval '(load "quicklisp.lisp")' \
