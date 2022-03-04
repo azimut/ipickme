@@ -5,9 +5,6 @@
 
 (in-package #:ipickme/image)
 
-(eval-when (:compile-toplevel :execute :load-toplevel)
-  (series::install))
-
 (defun thumbnails (&aux (images (images)))
   (gathering ((originals collect) (thumbs collect))
     (iterate ((original (scan images)) (idx (scan-range)))

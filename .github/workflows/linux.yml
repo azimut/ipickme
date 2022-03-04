@@ -55,15 +55,13 @@ jobs:
 
       - name: Symlink imagemagick
         run: |
-          cd /usr/lib
-          ls -l libMagickWand* || true
-          cd x86_64-linux-gnu/
-          ln -s libMagickWand-6.Q16.so libMagickWand.so
+          cd /usr/lib/x86_64-linux-gnu/
+          sudo ln -s libMagickWand-6.Q16.so libMagickWand.so
 
       - name: Build Binary
         run: |
           cd bin/
-          make
+          make SBCL_COMPRESSION=1
 
       - uses: actions/upload-artifact@v2
         with:
