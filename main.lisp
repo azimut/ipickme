@@ -8,7 +8,11 @@
 (in-package #:ipickme)
 
 (defun start ()
-  (when-let* ((images (thumbnails))
-              (thread (show images)))
-    (loop :while (thread-alive-p thread)
+  (multiple-value-bind (originals thumbnails) (thumbnails)
+    (assert (> (length originals) 0))
+    #+slynk
+    (show originals thumbnails)
+    #-slynk
+    (loop :with thread := (show originals thumbnails)
+          :while (thread-alive-p thread)
           :do (sleep .5))))

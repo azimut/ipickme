@@ -1,38 +1,38 @@
 (uiop:define-package  #:ipickme/ui
   (:use #:gtk #:gdk #:gdk-pixbuf #:gobject #:glib #:gio #:pango #:cairo #:cl)
-  (:export #:show)
   (:import-from #:uiop #:delete-file-if-exists)
-  (:import-from #:serapeum #:op #:lret #:~> #:-> #:~>>))
+  (:import-from #:serapeum #:op #:lret #:~> #:-> #:~>>)
+  (:export #:show))
 
 (in-package #:ipickme/ui)
 
-(defun show (images)
+(defun show (originals thumbnails &aux (length (length originals)))
   (within-main-loop
     (let ((window (make-instance
                    'gtk-window :type :toplevel
                    :title "ipickme"
-                   :default-width (* 150 (length images))
+                   :default-width (* 150 length)
                    :default-height 200
                    :border-width 12))
-          (box (gtk-box-new :horizontal (length images))))
+          (box (gtk-box-new :horizontal length)))
 
       (g-signal-connect window "destroy"
                         (lambda (widget)
                           (declare (ignore widget))
                           (leave-gtk-main)))
 
-      (let ((buttons (make-buttons images)))
+      (let ((buttons (make-buttons thumbnails)))
         (mapc (op (gtk-container-add box _)) buttons)
-        (mapc (op (signal-connect window _ _)) buttons images)
+        (mapc (op (signal-connect window _ _ _)) buttons originals thumbnails)
         (mapc #'fade buttons))
 
       (gtk-container-add window box)
       (gtk-widget-show-all window))))
 
-(defun signal-connect (window button path)
+(defun signal-connect (window button original thumbnail)
   (flet ((click (widget)
            (declare (ignore widget))
-           (format t "~a" path)
+           (format t "~a" original)
            (gtk-widget-destroy window))
          (focus (widget event)
            (declare (ignore event))
@@ -42,7 +42,7 @@
            (fade widget))
          (destroy (widget)
            (declare (ignore widget))
-           (delete-file-if-exists path)))
+           (delete-file-if-exists thumbnail)))
     (g-signal-connect button "clicked" #'click)
     (g-signal-connect button "destroy" #'destroy)
     (g-signal-connect button "focus-in-event" #'focus)
