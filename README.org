@@ -15,11 +15,23 @@ Pass it as arguments, paths of different images, and it will show you thumbnails
 
 ** Installation
 
+*** Prebuild
+
+- Use Linux prebuild [[https://github.com/azimut/ipickme/releases][releases]]
+
+*** Manual
+
 - Linux dependencies:
   - ImageMagick
   - GTK3
+  - SBCL
 - Lisp dependency NOT on quicklisp:
   - [[https://github.com/ruricolist/lisp-magick-wand][ruricolist/lisp-magick-wand]]
+- Use the Makefile provided
+  #+begin_src
+  cd bin/
+  make
+  #+end_src
 
 ** License
 
