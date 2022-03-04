@@ -9,17 +9,3 @@
   :license  "MIT"
   :version "0.0.1"
   :depends-on (#:ipickme/main))
-
-(asdf:defsystem #:ipickme/standalone
-  :depends-on (#:ipickme)
-  :defsystem-depends-on ("cffi-grovel")
-  :build-operation :static-program-op
-  :build-pathname "bin/ipickme-standalone/ipickme"
-  :entry-point "ipickme:start")
-
-(asdf:defsystem #:ipickme/deploy
-  :depends-on (#:ipickme)
-  :defsystem-depends-on (:deploy)
-  :build-operation "deploy-op"
-  :build-pathname "ipickme-deploy/ipickme"
-  :entry-point "ipickme:start")
