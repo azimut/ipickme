@@ -10,6 +10,10 @@ ipickme:
              --eval '(ql:quickload :ipickme)' \
              --eval "(sb-ext:save-lisp-and-die \"ipickme\" :toplevel #'ipickme:start :executable t :compression $(SBCL_COMPRESSION) :purify t)"
 
+.PHONY: install
+install: ipickme
+	install ipickme $(HOME)/bin/
+
 .PHONY: clean
 clean:
 	rm -f ipickme
