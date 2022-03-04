@@ -1,0 +1,86 @@
+name: Linux Build ipickme
+on:
+  push:
+    paths-ignore:
+      - 'LICENSE'
+      - 'README.org'
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: apt-get
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y sbcl wget
+      - name: Setup
+        run: |
+          mkdir -pv ~/Downloads
+          mkdir -pv ~/sbcl
+          mkdir -pv ~/quicklisp
+          mkdir -pv ~/.cache/common-lisp
+        shell: bash
+
+      - name: Get Current Month
+        id: current-month
+        run: echo "::set-output name=value::$(date -u '+%Y-%m')"
+      - name: Cache SBCL Setup
+        id: cache
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-sbcl-2.1.9-ipickme
+        with:
+          path: |
+            ~/Downloads/
+            ~/quicklisp
+            ~/.cache/common-lisp/
+            ~/sbcl
+          key: "${{ steps.current-month.outputs.value }}-${{ env.cache-name }}-${{ runner.os }}"
+      - name: Restore Path To Cached Files
+        run: |
+          echo $HOME/sbcl/bin >> $GITHUB_PATH
+        if: steps.cache.outputs.cache-hit == 'true'
+
+      - name: Download SBCL 2.1.9
+        run: |
+          cd ~/Downloads
+          wget http://downloads.sourceforge.net/project/sbcl/sbcl/2.1.9/sbcl-2.1.9-source.tar.bz2
+          tar xjf sbcl-2.1.9-source.tar.bz2
+        if: steps.cache.outputs.cache-hit != 'true'
+
+      - name: Install SBCL 2.1.9
+        run: |
+          cd ~/Downloads/sbcl-2.1.9
+          sh make.sh --fancy --with-sb-linkable-runtime
+          unset SBCL_HOME
+          INSTALL_ROOT=~/sbcl ./install.sh
+        if: steps.cache.outputs.cache-hit != 'true'
+
+      - name: Install quicklisp
+        run: |
+          cd ~/Downloads
+          export PATH="$HOME/sbcl/bin:${PATH}"
+          wget https://beta.quicklisp.org/quicklisp.lisp
+          sbcl --non-interactive \
+               --eval '(load "quicklisp.lisp")' \
+               --eval '(quicklisp-quickstart:install)' \
+               --eval '(ql-util:without-prompting (ql:add-to-init-file))' \
+               --eval '(ql:update-all-dists)'
+        if: steps.cache.outputs.cache-hit != 'true'
+
+      - name: Build Binary
+        run: |
+          export PATH="$HOME/sbcl/bin:${PATH}"
+          cd bin/
+          make SBCL_BIN="$HOME/sbcl/bin/sbcl"
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: ipickme-linux-x86_64
+          path: bin/ipickme
+          if-no-files-found: error
+
+      # - name: DEBUG SHELL
+      #   uses: mxschmitt/action-tmate@v3
+      #   if: ${{ failure() }}
