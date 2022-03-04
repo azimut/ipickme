@@ -1,7 +1,7 @@
 (uiop:define-package  #:ipickme/ui
   (:use #:gtk #:gdk #:gdk-pixbuf #:gobject #:glib #:gio #:pango #:cairo #:cl)
   (:import-from #:uiop #:delete-file-if-exists)
-  (:import-from #:serapeum #:op #:lret #:~> #:-> #:~>>)
+  (:import-from #:serapeum #:op #:lret)
   (:export #:show))
 
 (in-package #:ipickme/ui)

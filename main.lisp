@@ -1,7 +1,6 @@
 (uiop:define-package #:ipickme
   (:nicknames #:ipickme/main)
   (:use #:cl #:ipickme/image #:ipickme/ui)
-  (:import-from #:alexandria #:when-let*)
   (:import-from #:bordeaux-threads #:thread-alive-p)
   (:export #:start))
 
