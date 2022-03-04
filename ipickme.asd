@@ -1,4 +1,4 @@
-(register-system-packages
+(asdf:register-system-packages
  :cl-cffi-gtk
  '(:gtk :gdk :gdk-pixbuf :gobject :glib :gio :pango :cairo))
 
