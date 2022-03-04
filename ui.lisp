@@ -24,13 +24,13 @@
 
       (let ((buttons (make-buttons thumbnails)))
         (mapc (op (gtk-container-add box _)) buttons)
-        (mapc (op (signal-connect window _ _ _)) buttons originals thumbnails)
+        (mapc (op (signal-connect window _ _)) buttons originals)
         (mapc #'fade buttons))
 
       (gtk-container-add window box)
       (gtk-widget-show-all window))))
 
-(defun signal-connect (window button original thumbnail)
+(defun signal-connect (window button original)
   (flet ((click (widget)
            (declare (ignore widget))
            (princ original)
@@ -40,12 +40,8 @@
            (bright widget))
          (unfocus (widget event)
            (declare (ignore event))
-           (fade widget))
-         (destroy (widget)
-           (declare (ignore widget))
-           (delete-file-if-exists thumbnail)))
+           (fade widget)))
     (g-signal-connect button "clicked" #'click)
-    (g-signal-connect button "destroy" #'destroy)
     (g-signal-connect button "focus-in-event" #'focus)
     (g-signal-connect button "focus-out-event" #'unfocus)))
 
