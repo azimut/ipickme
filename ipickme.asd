@@ -8,4 +8,5 @@
   :author "azimut <azimut.github@protonmail.com>"
   :license  "MIT"
   :version "0.0.1"
+  :pathname "src"
   :depends-on (#:ipickme/main))
