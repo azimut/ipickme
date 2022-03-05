@@ -1,6 +1,6 @@
 (uiop:define-package #:ipickme
   (:nicknames #:ipickme/main)
-  (:use #:cl #:ipickme/image #:ipickme/ui)
+  (:use #:cl #:ipickme/ui)
   (:import-from #:uiop #:command-line-arguments #:delete-file-if-exists)
   (:import-from #:bordeaux-threads #:thread-alive-p)
   (:export #:start))
@@ -9,13 +9,11 @@
 
 (defun images () (mapcar #'truename (command-line-arguments)))
 (defun start ()
-  (let* ((images (images))
-         (thumbnails (create-thumbnails images)))
-    (assert (> (length thumbnails) 0))
+  (let* ((images (images)))
+    (assert (> (length images) 0))
     #+slynk
-    (show images thumbnails)
+    (show images)
     #-slynk
-    (loop :with thread := (show images thumbnails)
+    (loop :with thread := (show images)
           :while (thread-alive-p thread)
-          :do (sleep .5)
-          :finally (mapcar #'delete-file-if-exists thumbnails))))
+          :do (sleep .5))))

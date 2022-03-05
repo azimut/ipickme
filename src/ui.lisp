@@ -1,11 +1,11 @@
 (uiop:define-package  #:ipickme/ui
   (:use #:gtk #:gdk #:gdk-pixbuf #:gobject #:glib #:gio #:pango #:cairo #:cl)
-  (:import-from #:serapeum #:op #:lret)
+  (:import-from #:serapeum #:op #:lret* #:~>)
   (:export #:show))
 
 (in-package #:ipickme/ui)
 
-(defun show (originals thumbnails &aux (length (length originals)))
+(defun show (originals &aux (length (length originals)))
   (within-main-loop
     (let ((window (make-instance
                    'gtk-window :type :toplevel
@@ -21,7 +21,7 @@
                           (declare (ignore widget))
                           (leave-gtk-main)))
 
-      (let ((buttons (make-buttons thumbnails)))
+      (let ((buttons (make-buttons originals)))
         (mapc (op (gtk-container-add box _)) buttons)
         (mapc (op (signal-connect window _ _)) buttons originals)
         (mapc #'fade buttons))
@@ -45,10 +45,21 @@
     (g-signal-connect button "focus-out-event" #'unfocus)))
 
 (defun make-buttons (paths) (mapcar #'make-button paths))
-(defun make-button (path &aux (image (gtk-image-new-from-file path)))
-  (lret ((button (gtk-button-new)))
-    (gtk-widget-get-style-context button)
+(defun make-button (path)
+  (lret* ((pixbuf (~> (namestring path)
+                      (pixbuf-of-size 150)))
+          (image  (gtk-image-new-from-pixbuf pixbuf))
+          (button (gtk-button-new)))
     (gtk-container-add button image)))
+
+(defun pixbuf-of-size (path size)
+  (let* ((pixbuf (gdk-pixbuf-new-from-file path))
+         (width  (gdk-pixbuf-get-width pixbuf))
+         (height (gdk-pixbuf-get-height pixbuf))
+         (w/h    (/ width height)))
+    (if (> w/h 1)
+        (gdk-pixbuf-scale-simple pixbuf size (truncate (/ size w/h)) :bilinear)
+        (gdk-pixbuf-scale-simple pixbuf (truncate (* w/h size)) size :bilinear))))
 
 (defun fade   (widget) (g-object-set-property widget "opacity" .1))
 (defun bright (widget) (g-object-set-property widget "opacity" .9))

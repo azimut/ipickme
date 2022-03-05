@@ -13,7 +13,7 @@ jobs:
       - name: apt-get
         run: |
           sudo apt-get update
-          sudo apt-get install -y sbcl libmagickwand-dev
+          sudo apt-get install -y sbcl
       - name: Setup
         run: |
           mkdir -pv ~/Downloads
@@ -46,17 +46,6 @@ jobs:
                --eval '(ql-util:without-prompting (ql:add-to-init-file))' \
                --eval '(ql:update-all-dists)'
         if: steps.cache.outputs.cache-hit != 'true'
-
-      - name: Deps not on Quicklisp
-        run: |
-          cd ~/quicklisp/local-projects/
-          test -d lisp-magick-wand || git clone --depth=1 https://github.com/ruricolist/lisp-magick-wand
-          (cd lisp-magick-wand/    && git pull )
-
-      - name: Symlink imagemagick
-        run: |
-          cd /usr/lib/x86_64-linux-gnu/
-          sudo ln -s libMagickWand-6.Q16.so libMagickWand.so
 
       - name: Build Binary
         run: |
