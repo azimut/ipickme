@@ -1,17 +1,17 @@
-(uiop:define-package  #:ipickme/ui
+(uiop:define-package #:ipickme/ui
   (:use #:gtk #:gdk #:gdk-pixbuf #:gobject #:glib #:gio #:pango #:cairo #:cl)
   (:import-from #:serapeum #:op #:lret* #:~>)
   (:export #:show))
 
 (in-package #:ipickme/ui)
 
-(defun show (originals &aux (length (length originals)))
+(defun show (originals size &aux (length (length originals)))
   (within-main-loop
     (let ((window (make-instance
                    'gtk-window :type :toplevel
                    :title "ipickme"
-                   :default-width (* 150 length)
-                   :default-height 200
+                   :default-width (* size length)
+                   :default-height (truncate (+ size (* .1 size)))
                    :border-width 12))
           (box (gtk-box-new :horizontal length)))
 
@@ -21,7 +21,7 @@
                           (declare (ignore widget))
                           (leave-gtk-main)))
 
-      (let ((buttons (make-buttons originals)))
+      (let ((buttons (make-buttons originals size)))
         (mapc (op (gtk-container-add box _)) buttons)
         (mapc (op (signal-connect window _ _)) buttons originals)
         (mapc #'fade buttons))
@@ -44,10 +44,10 @@
     (g-signal-connect button "focus-in-event" #'focus)
     (g-signal-connect button "focus-out-event" #'unfocus)))
 
-(defun make-buttons (paths) (mapcar #'make-button paths))
-(defun make-button (path)
+(defun make-buttons (paths size) (mapcar (op (make-button _ size)) paths))
+(defun make-button (path size)
   (lret* ((pixbuf (~> (namestring path)
-                      (pixbuf-of-size 150)))
+                      (pixbuf-of-size size)))
           (image  (gtk-image-new-from-pixbuf pixbuf))
           (button (gtk-button-new)))
     (gtk-container-add button image)))
