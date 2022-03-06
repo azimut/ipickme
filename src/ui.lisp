@@ -1,11 +1,13 @@
 (uiop:define-package #:ipickme/ui
   (:use #:gtk #:gdk #:gdk-pixbuf #:gobject #:glib #:gio #:pango #:cairo #:cl)
-  (:import-from #:serapeum #:op #:lret* #:~>)
+  (:import-from #:serapeum #:op #:lret* #:~> #:->)
+  (:import-from #:bordeaux-threads #:thread)
   (:export #:show))
 
 (in-package #:ipickme/ui)
 
-(defun show (originals size &aux (length (length originals)))
+(-> show (List Integer) (values Thread Integer &optional))
+(defun show (images size &aux (length (length images)))
   (within-main-loop
     (let ((window (make-instance
                    'gtk-window :type :toplevel
@@ -21,9 +23,9 @@
                           (declare (ignore widget))
                           (leave-gtk-main)))
 
-      (let ((buttons (make-buttons originals size)))
+      (let ((buttons (make-buttons images size)))
         (mapc (op (gtk-container-add box _)) buttons)
-        (mapc (op (signal-connect window _ _)) buttons originals)
+        (mapc (op (signal-connect window _ _)) buttons images)
         (mapc #'fade buttons))
 
       (gtk-container-add window box)
