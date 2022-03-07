@@ -55,7 +55,6 @@ jobs:
           make SBCL_COMPRESSION=1
 
       - uses: AppImageCrafters/build-appimage@master
-        working-directory: ./bin
         with:
           recipe: "./AppImageBuilder.yml"
         env:

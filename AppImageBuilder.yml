@@ -2,8 +2,8 @@
 version: 1
 script:
   - rm -rf AppDir *.AppImage
-  - install -D ipickme      AppDir/usr/bin/ipickme
-  - install -D iconfile.svg AppDir/usr/share/icons/iconfile.svg
+  - install -D bin/ipickme      AppDir/usr/bin/ipickme
+  - install -D bin/iconfile.svg AppDir/usr/share/icons/iconfile.svg
 AppDir:
   path: AppDir
   app_info:
