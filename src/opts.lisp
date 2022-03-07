@@ -20,7 +20,7 @@
 (defun options ()
   (multiple-value-bind (options images) (get-opts)
     (when (null images)
-      (exit-error "no images provided"))
+      (exit-normal "no images provided"))
     (when (getf options :help)
       (exit-normal))
     (values (getf options :size)
@@ -31,11 +31,12 @@
    :prefix "ipickme is an image picker for cli tools. Usage:"
    :args "[images]"))
 
-(defun exit-normal ()
+(defun exit-normal (&optional msg)
+  (when msg (format *standard-output* "~a~%" msg))
   (usage)
   (quit 0))
 
-(defun exit-error (msg)
-  (when msg (format *error-output* "~a" msg))
+(defun exit-error (&optional msg)
+  (when msg (format *error-output* "~a~%" msg))
   (usage)
   (quit 1))
