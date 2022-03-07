@@ -57,6 +57,14 @@ jobs:
       - uses: AppImageCrafters/build-appimage@master
         with:
           recipe: "./AppImageBuilder.yml"
+          args: --skip-appimage --skip-tests
+        env:
+          UPDATE_INFO: gh-releases-zsync|RuneCrafters|appimage-ipickme|latest|*x86_64.AppImage.zsync
+
+      - uses: AppImageCrafters/build-appimage@master
+        with:
+          recipe: "./AppImageBuilder.yml"
+          args: --skip-build --skip-tests --skip-script
         env:
           UPDATE_INFO: gh-releases-zsync|RuneCrafters|appimage-ipickme|latest|*x86_64.AppImage.zsync
 
