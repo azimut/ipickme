@@ -54,6 +54,13 @@ jobs:
           cd bin/
           make SBCL_COMPRESSION=1
 
+      - uses: AppImageCrafters/build-appimage@master
+        working-directory: ./bin
+        with:
+          recipe: "./AppImageBuilder.yml"
+        env:
+          UPDATE_INFO: gh-releases-zsync|RuneCrafters|appimage-ipickme|latest|*x86_64.AppImage.zsync
+
       - name: Dev Release
         uses: marvinpinto/action-automatic-releases@latest
         if: "!startsWith(github.ref, 'refs/tags/')"
@@ -64,6 +71,7 @@ jobs:
           title: "Development Build"
           files: |
             bin/ipickme
+            bin/ipickme-latest-x86_64.AppImage
             LICENSE
 
       - name: Stable Release
@@ -74,6 +82,7 @@ jobs:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           files: |
             bin/ipickme
+            bin/ipickme-latest-x86_64.AppImage
             LICENSE
 
       # - name: DEBUG SHELL

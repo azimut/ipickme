@@ -17,3 +17,10 @@ install: ipickme
 .PHONY: clean
 clean:
 	rm -f ipickme
+
+.PHONY: appimage
+appimage: ipickme-latest-x86_64.AppImage
+ipickme-latest-x86_64.AppImage: ipickme AppImageBuilder.yml iconfile.svg
+	appimage-builder --skip-appimage --skip-tests
+	install ipickme AppDir/usr/bin/
+	appimage-builder --skip-build --skip-tests --skip-script

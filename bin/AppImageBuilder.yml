@@ -1,0 +1,152 @@
+# appimage-builder recipe see https://appimage-builder.readthedocs.io for details
+version: 1
+script:
+  - rm -rf AppDir *.AppImage
+  - install -D ipickme      AppDir/usr/bin/ipickme
+  - install -D iconfile.svg AppDir/usr/share/icons/iconfile.svg
+AppDir:
+  path: AppDir
+  app_info:
+    id: ipickme
+    name: ipickme
+    icon: iconfile
+    version: latest
+    exec: usr/bin/ipickme
+    exec_args: $@
+  files:
+    include:
+    - /lib64/ld-linux-x86-64.so.2
+    - /lib64/libX11.so.6
+    - /lib64/libXau.so.6
+    - /lib64/libXcomposite.so.1
+    - /lib64/libXcursor.so.1
+    - /lib64/libXdamage.so.1
+    - /lib64/libXext.so.6
+    - /lib64/libXfixes.so.3
+    - /lib64/libXi.so.6
+    - /lib64/libXinerama.so.1
+    - /lib64/libXrandr.so.2
+    - /lib64/libXrender.so.1
+    - /lib64/libatk-1.0.so.0
+    - /lib64/libatk-1.0.so.0
+    - /lib64/libatk-bridge-2.0.so.0
+    - /lib64/libatk-bridge-2.0.so.0
+    - /lib64/libatspi.so.0
+    - /lib64/libatspi.so.0
+    - /lib64/libblkid.so.1
+    - /lib64/libbz2.so.1
+    - /lib64/libc.so.6
+    - /lib64/libcairo-gobject.so.2
+    - /lib64/libcairo.so.2
+    - /lib64/libdatrie.so.1
+    - /lib64/libdbus-1.so.3
+    - /lib64/libdbus-1.so.3
+    - /lib64/libdl.so.2
+    - /lib64/libepoxy.so.0
+    - /lib64/libexpat.so.1
+    - /lib64/libffi.so.6
+    - /lib64/libfontconfig.so.1
+    - /lib64/libfreetype.so.6
+    - /lib64/libfribidi.so.0
+    - /lib64/libgcc_s.so.1
+    - /lib64/libgcc_s.so.1
+    - /lib64/libgcrypt.so.20
+    - /lib64/libgcrypt.so.20
+    - /lib64/libgdk-3.so.0
+    - /lib64/libgdk_pixbuf-2.0.so.0
+    - /lib64/libgio-2.0.so.0
+    - /lib64/libglib-2.0.so.0
+    - /lib64/libgmodule-2.0.so.0
+    - /lib64/libgobject-2.0.so.0
+    - /lib64/libgpg-error.so.0
+    - /lib64/libgpg-error.so.0
+    - /lib64/libgraphite2.so.3
+    - /lib64/libgthread-2.0.so.0
+    - /lib64/libgtk-3.so.0
+    - /lib64/libgtk-3.so.0
+    - /lib64/libharfbuzz.so.0
+    - /lib64/liblz4.so.1
+    - /lib64/liblz4.so.1
+    - /lib64/liblzma.so.5
+    - /lib64/liblzma.so.5
+    - /lib64/libm.so.6
+    - /lib64/libmount.so.1
+    - /lib64/libpango-1.0.so.0
+    - /lib64/libpangocairo-1.0.so.0
+    - /lib64/libpangoft2-1.0.so.0
+    - /lib64/libpcre.so.1
+    - /lib64/libpcre2-8.so.0
+    - /lib64/libpixman-1.so.0
+    - /lib64/libpng16.so.16
+    - /lib64/libpthread.so.0
+    - /lib64/libresolv.so.2
+    - /lib64/librsvg-2.so.2
+    - /lib64/librt.so.1
+    - /lib64/libselinux.so.1
+    - /lib64/libsystemd.so.0
+    - /lib64/libsystemd.so.0
+    - /lib64/libthai.so.0
+    - /lib64/libwayland-client.so.0
+    - /lib64/libwayland-cursor.so.0
+    - /lib64/libwayland-egl.so.1
+    - /lib64/libxkbcommon.so.0
+    - /lib64/libxml2.so.2
+    - /lib64/libz.so.1
+    - /usr/lib/locale/locale-archive
+    - /usr/lib64/gdk-pixbuf-2.0/2.10.0/loaders/libpixbufloader-ani.so
+    - /usr/lib64/gdk-pixbuf-2.0/2.10.0/loaders/libpixbufloader-bmp.so
+    - /usr/lib64/gdk-pixbuf-2.0/2.10.0/loaders/libpixbufloader-gif.so
+    - /usr/lib64/gdk-pixbuf-2.0/2.10.0/loaders/libpixbufloader-icns.so
+    - /usr/lib64/gdk-pixbuf-2.0/2.10.0/loaders/libpixbufloader-ico.so
+    - /usr/lib64/gdk-pixbuf-2.0/2.10.0/loaders/libpixbufloader-jasper.so
+    - /usr/lib64/gdk-pixbuf-2.0/2.10.0/loaders/libpixbufloader-jpeg.so
+    - /usr/lib64/gdk-pixbuf-2.0/2.10.0/loaders/libpixbufloader-pnm.so
+    - /usr/lib64/gdk-pixbuf-2.0/2.10.0/loaders/libpixbufloader-qtif.so
+    - /usr/lib64/gdk-pixbuf-2.0/2.10.0/loaders/libpixbufloader-svg.so
+    - /usr/lib64/gdk-pixbuf-2.0/2.10.0/loaders/libpixbufloader-tga.so
+    - /usr/lib64/gdk-pixbuf-2.0/2.10.0/loaders/libpixbufloader-tiff.so
+    - /usr/lib64/gdk-pixbuf-2.0/2.10.0/loaders/libpixbufloader-xbm.so
+    - /usr/lib64/gdk-pixbuf-2.0/2.10.0/loaders/libpixbufloader-xpm.so
+    - /usr/lib64/gio/modules/libgvfsdbus.so
+    - /usr/lib64/gvfs/libgvfscommon.so
+    - /usr/share//mime//mime.cache
+    - /usr/share/X11/locale/en_US.UTF-8/XLC_LOCALE
+    - /usr/share/X11/locale/locale.alias
+    - /usr/share/X11/locale/locale.alias
+    - /usr/share/X11/locale/locale.dir
+    - /usr/share/fonts/blender/droidsans.ttf
+    - /usr/share/fonts/blender/droidsans.ttf
+    - /usr/share/locale/en/LC_MESSAGES/gtk30-properties.mo
+    - /usr/share/locale/en/LC_MESSAGES/gtk30.mo
+    - /usr/share/locale/locale.alias
+    - /usr/share/locale/locale.alias
+    exclude:
+    - usr/share/man
+    - usr/share/doc/*/README.*
+    - usr/share/doc/*/changelog.*
+    - usr/share/doc/*/NEWS.*
+    - usr/share/doc/*/TODO.*
+  test:
+    fedora-30:
+      image: appimagecrafters/tests-env:fedora-30
+      command: ./AppRun
+      use_host_x: true
+    debian-stable:
+      image: appimagecrafters/tests-env:debian-stable
+      command: ./AppRun
+      use_host_x: true
+    archlinux-latest:
+      image: appimagecrafters/tests-env:archlinux-latest
+      command: ./AppRun
+      use_host_x: true
+    centos-7:
+      image: appimagecrafters/tests-env:centos-7
+      command: ./AppRun
+      use_host_x: true
+    ubuntu-xenial:
+      image: appimagecrafters/tests-env:ubuntu-xenial
+      command: ./AppRun
+      use_host_x: true
+AppImage:
+  arch: x86_64
+  update-information: guess
