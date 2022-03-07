@@ -52,12 +52,23 @@ jobs:
           cd bin/
           make SBCL_COMPRESSION=1
 
-      - uses: marvinpinto/action-automatic-releases@latest
+      - name: Dev Release
+        uses: marvinpinto/action-automatic-releases@latest
+        if: ! startsWith(github.ref, 'refs/tags/')
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: "latest"
           prerelease: true
           title: "Development Build"
+          files: |
+            bin/ipickme
+            LICENSE
+
+      - name: Stable Release
+        uses: marvinpinto/action-automatic-releases@latest
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
           files: |
             bin/ipickme
             LICENSE
