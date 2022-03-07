@@ -14,18 +14,21 @@ ipickme:
 ipickme-deploy/ipickme:
 	$(SBCL_BIN) --non-interactive --no-sysinit --no-userinit \
              --load ~/quicklisp/setup.lisp \
+             --eval '(ql:quickload :deploy)' \
              --load '../ipickme.asd' \
-             --eval '(ql:quickload :ipickme/deploy)' \
-             --eval '(asdf:make :ipickme/deploy :verbose t :force t)'
-	install /usr/*/gdk-pixbuf*/*/loaders/libpixbufloader-*   ipickme-deploy/ || true
-	install /usr/*/*/gdk-pixbuf*/*/loaders/libpixbufloader-* ipickme-deploy/ || true
+             --load '../ipickme-deploy.asd' \
+             --eval '(ql:quickload :ipickme-deploy)' \
+             --eval '(asdf:make :ipickme-deploy :verbose t :force t)'
+	-install /usr/*/gdk-pixbuf*/*/loaders/libpixbufloader-*   ipickme-deploy/
+	-install /usr/*/*/gdk-pixbuf*/*/loaders/libpixbufloader-* ipickme-deploy/
 
 ipickme-x86_64.AppImage: ipickme-deploy/ipickme
 	cp ipickme.desktop ipickme-deploy/ipickme.desktop
 	cp iconfile.svg    ipickme-deploy/iconfile.svg
 	cp AppRun          ipickme-deploy/AppRun
 	wget -c -O ~/Downloads/appimagetool $(APPIMAGETOOL_URL)
-	ARCH=x86_64 ~/Downloads/appimagetool ipickme-deploy ipickme-latest-x86_64.AppImage
+	chmod +x ~/Downloads/appimagetool
+	ARCH=x86_64 ~/Downloads/appimagetool ipickme-deploy ipickme-x86_64.AppImage
 
 .PHONY: install
 install: ipickme
