@@ -9,6 +9,8 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 # See https://github.com/PaulHatch/semantic-version#important-note-regarding-the-checkout-action
 
       - name: apt-get
         run: |
