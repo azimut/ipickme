@@ -53,6 +53,7 @@ jobs:
         run: |
           cd bin/
           make SBCL_COMPRESSION=1
+          make ipickme-x86_64.AppImage
 
       - name: Dev Release
         uses: marvinpinto/action-automatic-releases@latest
@@ -64,6 +65,7 @@ jobs:
           title: "Development Build"
           files: |
             bin/ipickme
+            bin/ipickme-x86_64.AppImage
             LICENSE
 
       - name: Stable Release
@@ -74,6 +76,7 @@ jobs:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           files: |
             bin/ipickme
+            bin/ipickme-x86_64.AppImage
             LICENSE
 
       # - name: DEBUG SHELL

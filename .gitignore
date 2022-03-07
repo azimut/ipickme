@@ -26,6 +26,9 @@
 
 bin/*
 !bin/Makefile
+!bin/ipickme.desktop
+!bin/iconfile.svg
+!bin/AppRun
 ipickme.zip
 
 # Emacs
