@@ -54,6 +54,10 @@ jobs:
           cd bin/
           make SBCL_COMPRESSION=1
 
+      - name: Test Run
+        run: |
+          ./bin/ipickme -h
+
       - name: Dev Release
         uses: marvinpinto/action-automatic-releases@latest
         if: "!startsWith(github.ref, 'refs/tags/')"

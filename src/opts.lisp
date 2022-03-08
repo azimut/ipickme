@@ -19,10 +19,10 @@
 (-> options () (values Integer List))
 (defun options ()
   (multiple-value-bind (options images) (get-opts)
-    (when (null images)
-      (exit-normal "no images provided"))
     (when (getf options :help)
       (exit-normal))
+    (when (null images)
+      (exit-normal "no images provided"))
     (values (getf options :size)
             (mapcar #'truename images))))
 
