@@ -15,7 +15,7 @@ jobs:
       - name: apt-get
         run: |
           sudo apt-get update
-          sudo apt-get install -y sbcl
+          sudo apt-get install -y sbcl libgtk3-dev
       - name: Setup
         run: |
           mkdir -pv ~/Downloads
