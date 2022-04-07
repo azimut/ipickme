@@ -51,12 +51,11 @@ jobs:
 
       - name: Build Binary
         run: |
-          cd bin/
           make SBCL_COMPRESSION=1
 
       - name: Test Run
         run: |
-          ./bin/ipickme -h
+          ./ipickme -h
 
       - name: Dev Release
         uses: marvinpinto/action-automatic-releases@latest
@@ -67,7 +66,7 @@ jobs:
           prerelease: true
           title: "Development Build"
           files: |
-            bin/ipickme
+            ipickme
             LICENSE
 
       - name: Stable Release
@@ -77,7 +76,7 @@ jobs:
           prerelease: false
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           files: |
-            bin/ipickme
+            ipickme
             LICENSE
 
       # - name: DEBUG SHELL

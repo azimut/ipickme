@@ -1,4 +1,4 @@
-*.png
+ipickme
 
 # Created by https://www.toptal.com/developers/gitignore/api/commonlisp
 # Edit at https://www.toptal.com/developers/gitignore?templates=commonlisp
@@ -23,10 +23,6 @@
 *.wx32fsl
 
 # End of https://www.toptal.com/developers/gitignore/api/commonlisp
-
-bin/*
-!bin/Makefile
-ipickme.zip
 
 # Emacs
 
