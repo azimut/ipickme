@@ -2,11 +2,16 @@
   (:nicknames #:ipickme/main)
   (:use #:cl #:ipickme/ui #:ipickme/opts)
   (:import-from #:bordeaux-threads #:thread-alive-p)
-  (:export #:start))
+  (:export #:main))
 
 (in-package #:ipickme)
 
-(defun start ()
+(defun main ()
+  (handler-case (run)
+    (sb-sys:interactive-interrupt ()
+      (exit-error "Abort.~&"))))
+
+(defun run ()
   (multiple-value-bind (size images) (options)
     #+slynk
     (show images size)

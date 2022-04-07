@@ -8,12 +8,11 @@ ipickme:
              --load ~/quicklisp/setup.lisp \
              --load ../ipickme.asd \
              --eval '(ql:quickload :ipickme)' \
-             --eval "(sb-ext:save-lisp-and-die \"ipickme\" :toplevel #'ipickme:start :executable t :compression $(SBCL_COMPRESSION) :purify t)"
+             --eval "(sb-ext:save-lisp-and-die \"ipickme\" :toplevel #'ipickme:main :executable t :compression $(SBCL_COMPRESSION) :purify t)"
 
 .PHONY: install
 install: ipickme
 	install ipickme $(HOME)/bin/
 
 .PHONY: clean
-clean:
-	rm -f ipickme
+clean: ; rm -f ipickme
