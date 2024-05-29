@@ -1,3 +1,4 @@
+.qlot/
 ipickme
 
 # Created by https://www.toptal.com/developers/gitignore/api/commonlisp
@@ -29,4 +30,3 @@ ipickme
 *~
 \#*\#
 .\#*
-
