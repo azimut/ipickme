@@ -6,7 +6,9 @@ Image file picker for shell scripts.
 
 Like you would use Kdialog or Zenity.
 
-Pass it as arguments, paths of different images, and it will show you thumbnails of them where you can pick one. The picked one's path will be printed to stdout.
+Pass it as arguments, paths of different images, and it will show you thumbnails of them where you can pick one.
+Pick one and his path will be printed to stdout.
+Or press ESC to exit and return nothing.
 
 #+begin_src shell
 > ./ipickme /some/path/image1.jpg /some/path/image2.jpg

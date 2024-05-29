@@ -18,6 +18,14 @@
           (box (gtk-box-new :horizontal length)))
 
       (gtk-window-set-position window :center-always)
+
+      ;; NOTE: returning NIL makes it so it doesn't swallows the key event
+      (g-signal-connect window "key_press_event"
+                        (lambda (w ev &aux (key (gdk-event-key-string ev)))
+                          (declare (ignore w))
+                          (when (and (plusp (length key))
+                                     (char= #\esc (elt key 0)))
+                            (gtk-widget-destroy window))))
       (g-signal-connect window "destroy"
                         (lambda (widget)
                           (declare (ignore widget))
